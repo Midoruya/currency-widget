@@ -1,7 +1,7 @@
 @import "./choice-button.scss";
 @import "./custom-card.scss";
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .custom-card-3 {
         display: none;
     }
@@ -11,9 +11,10 @@
 }
 
 .widget {
+    max-width: 720px;
     margin: 0;
     &-header {
-        max-height: 100vh;
+        
         display: flex;
         flex-direction: column;
         height: 111px;
@@ -30,18 +31,92 @@
             line-height: 25px;
         }
 
+        &-choice {
+            display: flex;
+            max-height: 48px;
+            justify-content: space-between;
+            &-navigation {
+                flex-shrink: 0;
+                padding: 0;
+                margin: 0;
+                width: 30px;
+                height: 48px;
+                color: #CCAE68;
+                font-size: 32px;
+                background: transparent;
+                border: none;
+                z-index: 5;
+            }
+            &-buttons {
+                display: flex;
+                max-width: 89vw;
+            }
+        }
     }
 
     &-body {
         &-count {
-            margin: 29px 0 23px 0;
+            justify-content: flex-end;
+            display: flex;
+            width: 100%;
+            height: 26px;
+            margin: 29px 0 23px -27px;
+            text-align: center;
+            input {
+                height: 26px;
+                width: 121px;
+                text-align: right;
+                border: none;
+                border-bottom: 2px solid #D9D9D9;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 21px;
+            }
+            a {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 21px;
+                color: #B9B9B9;
+            }
         }
         &-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 690px;
+            max-width: 100%;
             align-content: space-between;
+        }
+    }
+    &-pagination {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 41px 0 24px 0;
+        button {
+            margin: 0 9px 0 9px;
+            background: #EFEFEF;
+            box-shadow: 0px 5px 6px rgba(157, 157, 157, 0.16);
+            border-radius: 8px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #787878;
+            border: none;
+            width: 112px;
+            height: 34px;
+        }
+        button:hover {
+            background: #FFFFFF;
+            color: #2B2D33;
         }
     }
 }

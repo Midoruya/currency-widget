@@ -4,7 +4,8 @@
       {{ factor }} <span style="color: #b9b9b9">{{ currency }} =</span>
     </h5>
     <h1>
-      <span style="font-size: 48px">{{ calc_result() }}</span> {{ currency }}
+      <span style="font-size: 48px">{{ calc_result }}</span>
+      {{ currency_conver }}
     </h1>
   </div>
 </template>
@@ -15,6 +16,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "custom-card",
   props: {
+    currency_conver: {
+      default: "USD",
+      type: String,
+    },
     currency: {
       default: "USD",
       type: String,
@@ -28,7 +33,7 @@ export default defineComponent({
       default: 60,
     },
   },
-  methods: {
+  computed: {
     calc_result(): string {
       if (this.factor == 0) return "0";
       if (this.factor <= 1) return this.defalt_meaning.toString();
