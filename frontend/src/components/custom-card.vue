@@ -11,10 +11,30 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "custom-card",
+  data() {
+    return {
+      calc_result: "",
+    };
+  },
+  watch: {
+    currency_conver() {
+      this.$forceUpdate();
+    },
+    factor() {
+      this.$forceUpdate();
+    },
+    currency() {
+      this.$forceUpdate();
+    },
+    defalt_meaning() {
+      this.$forceUpdate();
+    },
+  },
   props: {
     currency_conver: {
       default: "USD",
@@ -33,14 +53,33 @@ export default defineComponent({
       default: 60,
     },
   },
-  computed: {
-    calc_result(): string {
-      if (this.factor == 0) return "0";
-      if (this.factor <= 1) return this.defalt_meaning.toString();
-      let mul = (i: number, j: number) => i * j;
+  async mounted() {
+    if (this.factor < 1 || this.factor == undefined || this.factor == null)
+      this.calc_result = "0";
 
-      return mul(this.factor, this.defalt_meaning).toString();
-    },
+    let { data } = await axios.get(
+      "http://[::1]:3000/currency/convert/" +
+        this.currency +
+        "/" +
+        this.currency_conver +
+        "/" +
+        this.factor
+    );
+    this.calc_result = data;
+  },
+  async updated() {
+    if (this.factor < 1 || this.factor == undefined || this.factor == null)
+      this.calc_result = "0";
+
+    let { data } = await axios.get(
+      "http://[::1]:3000/currency/convert/" +
+        this.currency +
+        "/" +
+        this.currency_conver +
+        "/" +
+        this.factor
+    );
+    this.calc_result = data;
   },
 });
 </script>

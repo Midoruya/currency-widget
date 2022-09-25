@@ -6,34 +6,29 @@ import axios from 'axios';
 export class CurrencyController {
   constructor() {}
 
-  @get('/currency/convert/{currency}/{amount}')
+  @get('/currency/convert/{from}/{to}/{amount}')
   async convertSelectedCurrencies(
-    @param.path.string('currency') currency: string,
+    @param.path.string('from') from: string,
+    @param.path.string('to') to: string,
     @param.path.string('amount') amount: number,
-  ): Promise<string[]> {
-    const TO_CONVERT = ['RUB', 'CAD', 'HRK', 'JPY'];
-    const result: string[] = [];
-    console.log(currency.toUpperCase());
-    for (const index in TO_CONVERT) {
-      await axios
-        .get(
-          'https://api.apilayer.com/fixer/convert?to=' +
-            TO_CONVERT[index] +
-            '&from=' +
-            currency +
-            '&amount=' +
-            amount,
-          {
-            headers: {
-              apikey: 'Rg82Wh150Dc7w6dGfdSzBZ2GERugWnBw',
-            },
+  ): Promise<string> {
+    let result = '0';
+    await axios
+      .get(
+        'https://api.apilayer.com/fixer/convert?to=' +
+          to +
+          '&from=' +
+          from +
+          '&amount=' +
+          amount,
+        {
+          headers: {
+            apikey: 'Rg82Wh150Dc7w6dGfdSzBZ2GERugWnBw',
           },
-        )
-        .then(response =>
-          result.push((response.data.result as number).toFixed(2)),
-        )
-        .catch(err => console.log(err));
-    }
+        },
+      )
+      .then(response => (result = (response.data.result as number).toFixed(2)))
+      .catch(err => console.log(err));
     return result;
   }
 
