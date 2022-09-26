@@ -11,6 +11,8 @@
 </template>
 
 <script lang="ts">
+import { get_convert_calculate_currency } from "@/scripts/currency_api";
+import { thisExpression } from "@babel/types";
 import axios from "axios";
 import { defineComponent } from "vue";
 
@@ -54,32 +56,18 @@ export default defineComponent({
     },
   },
   async mounted() {
-    if (this.factor < 1 || this.factor == undefined || this.factor == null)
-      this.calc_result = "0";
-
-    let { data } = await axios.get(
-      "http://[::1]:3000/currency/convert/" +
-        this.currency +
-        "/" +
-        this.currency_conver +
-        "/" +
-        this.factor
+    this.calc_result = await get_convert_calculate_currency(
+      this.currency_conver,
+      this.currency,
+      this.factor
     );
-    this.calc_result = data;
   },
   async updated() {
-    if (this.factor < 1 || this.factor == undefined || this.factor == null)
-      this.calc_result = "0";
-
-    let { data } = await axios.get(
-      "http://[::1]:3000/currency/convert/" +
-        this.currency +
-        "/" +
-        this.currency_conver +
-        "/" +
-        this.factor
+    this.calc_result = await get_convert_calculate_currency(
+      this.currency_conver,
+      this.currency,
+      this.factor
     );
-    this.calc_result = data;
   },
 });
 </script>

@@ -77,7 +77,7 @@
 import { defineComponent } from "vue";
 import choiceButton from "./components/choice-button.vue";
 import CustomCard from "./components/custom-card.vue";
-import { currency_data, get_all_currency } from "./scripts/get_all_currency";
+import { currency_data, get_all_currency } from "./scripts/currency_api";
 
 export default defineComponent({
   components: { choiceButton, CustomCard },
